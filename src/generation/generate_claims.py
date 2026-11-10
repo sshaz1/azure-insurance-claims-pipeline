@@ -4,7 +4,7 @@ import calendar
 import random
 from datetime import date, timedelta
 from pathlib import Path
-
+from copy import deepcopy
 
 # ---------------------------------------------------------
 # Configuration
@@ -158,15 +158,83 @@ def generate_claim(claim_number, month, rng):
         "last_updated_at": f"{updated.isoformat()}T12:00:00"
     }
 
+# ---------------------------------------------------------
+# Claim status updates
+# ---------------------------------------------------------
+def generate_claim_update(original_claim, update_month, rng):
+    """
+    Create an updated version of an existing OPEN claim.
 
+    The updated claim retains its original ID and policy
+    information but changes to APPROVED or DENIED.
 
+    Args:
+        original_claim: Original claim dictionary.
+        update_month: Month when the claim is updated.
+        rng: Shared random number generator.
+
+    Returns:
+        A new dictionary representing the updated claim.
+    """
+
+    # Only OPEN claims can be updated in our initial model.
+    if original_claim["status"] != "OPEN":
+        raise ValueError("Only OPEN claims can be updated")
+
+    # Create an independent copy of the original record.
+    updated_claim = deepcopy(original_claim)
+
+    # Randomly decide whether the claim is approved or denied.
+    new_status = rng.choice(["APPROVED", "DENIED"])
+
+    # Choose the date when the claim is resolved.
+    # For now, updates occur within the specified month.
+    last_day = calendar.monthrange(2026, update_month)[1]
+
+    closed = date(
+        2026,
+        update_month,
+        rng.randint(1, last_day)
+    )
+
+    # Convert the original amount into integer cents.
+    claimed_cents = round(
+        float(updated_claim["claimed_amount"]) * 100
+    )
+
+    # Determine the approved amount based on the new status.
+    if new_status == "APPROVED":
+
+        # Approve between 50% and 100% of the claimed amount.
+        approval_ratio = rng.uniform(0.5, 1.0)
+
+        approved_cents = round(
+            claimed_cents * approval_ratio
+        )
+
+    else:
+        # Denied claims receive no approved amount.
+        approved_cents = 0
+
+    # Update the claim's status, closure date, and amount.
+    updated_claim["status"] = new_status
+    updated_claim["date_closed"] = closed.isoformat()
+    updated_claim["approved_amount"] = f"{approved_cents / 100:.2f}"
+
+    # Record when the claim was updated.
+    updated_claim["last_updated_at"] = (
+        f"{closed.isoformat()}T12:00:00"
+    )
+
+    return updated_claim
 
 # ---------------------------------------------------------
 # Monthly CSV generation
 # ---------------------------------------------------------
 def main(total_claims, seed):
     """
-    Generate synthetic claims and export 12 monthly CSV files.
+    Generate monthly CSV files containing new claims
+    and updates to previously OPEN claims.
 
     Args:
         total_claims: Total number of unique claims to generate.
@@ -188,49 +256,116 @@ def main(total_claims, seed):
     # Start claim IDs at 1.
     claim_number = 1
 
+    # Store OPEN claims that may be resolved in future months.
+    open_claims = []
+
+    # Track how many records and updates are generated.
+    total_records = 0
+    total_updates = 0
+
     # Generate one CSV file for each month of 2026.
     for month in range(1, 13):
-        # Give an additional claim to the first 'remainder' months.
+
+        # Calculate the number of NEW claims for this month.
         count = base + (1 if month <= remainder else 0)
 
-        # Example: claims_2026_01.csv
-        filename = (
-            OUTPUT_DIR / f"claims_2026_{month:02d}.csv"
-        )
+        # Store both new claims and updates for this month.
+        monthly_claims = []
 
-        # Open the file and write the CSV header and records.
+        # -------------------------------------------------
+        # Step 1: Update OPEN claims from previous months
+        # -------------------------------------------------
+
+        if month > 1:
+
+            # Resolve approximately 30% of previously OPEN claims.
+            update_count = round(len(open_claims) * 0.30)
+
+            # Randomly select existing claims to update.
+            claims_to_update = rng.sample(
+                open_claims,
+                update_count
+            )
+
+            for original in claims_to_update:
+
+                # Generate a newer version of the existing claim.
+                updated = generate_claim_update(
+                    original_claim=original,
+                    update_month=month,
+                    rng=rng
+                )
+
+                # Add the updated version to this month's CSV.
+                monthly_claims.append(updated)
+
+                # Remove resolved claims from the OPEN list.
+                open_claims.remove(original)
+
+        # -------------------------------------------------
+        # Step 2: Generate NEW claims for the current month
+        # -------------------------------------------------
+
+        for _ in range(count):
+
+            claim = generate_claim(
+                claim_number,
+                month,
+                rng
+            )
+
+            # Add the new claim to this month's CSV.
+            monthly_claims.append(claim)
+
+            # Save OPEN claims for possible future updates.
+            if claim["status"] == "OPEN":
+                open_claims.append(claim)
+
+            # Only new claims receive new IDs.
+            claim_number += 1
+
+        # -------------------------------------------------
+        # Step 3: Export all monthly records
+        # -------------------------------------------------
+        """
+        Sort new claims and updates by claim_id in ascending order.
+        When .sort() calls this function, it passes in one item from 
+        monthly_claims. If that item is {"claim_id": "CLM-003"}, 
+        then claim refers to that dictionary for that call.
+        key takes a function. sort calls it once per list item and uses
+        the returned value to decide where that item goes
+        """
+        monthly_claims.sort(key=lambda claim: claim["claim_id"])
+
+        # Count all records written, including new claims and updates.
+        total_records += len(monthly_claims)
+
+        # Count updated versions of existing claims.
+        total_updates += len(monthly_claims) - count
+
+        filename = OUTPUT_DIR / f"claims_2026_{month:02d}.csv"
+
         with filename.open(
             "w",
             newline="",
             encoding="utf-8"
         ) as file:
 
-            # Create a CSV writer using our predefined columns.
             writer = csv.DictWriter(
                 file,
                 fieldnames=FIELDS
             )
 
-            # Write the column headers first.
             writer.writeheader()
 
-            # Generate the assigned number of claims.
-            for _ in range(count):
-                claim = generate_claim(
-                    claim_number,
-                    month,
-                    rng
-                )
+            # Write both new claims and updated claim versions.
+            writer.writerows(monthly_claims)
 
-                # Write the claim dictionary as a CSV row.
-                writer.writerow(claim)
-
-                # Increment the ID so each claim is unique.
-                claim_number += 1
-
-        # Display progress after writing each monthly file.
+        # Display monthly generation statistics.
         print(
-            f"Created {filename.name}: {count:,} claims"
+            f"Created {filename.name}: "
+            f"{count:,} new claims, "
+            f"{len(monthly_claims) - count:,} updates"
         )
 
     # Display the total number of generated claims.
@@ -238,7 +373,10 @@ def main(total_claims, seed):
         f"\nTotal unique claims: {claim_number - 1:,}" #:, formats large numbers with commas
         #We subtract 1 because claim_number is incremented after every generated claim.
     )
-
+    # Display final dataset statistics.
+    print(f"Total records generated: {total_records:,}")
+    print(f"Total claim updates: {total_updates:,}")
+    print(f"Claims still OPEN: {len(open_claims):,}")
 
 # ---------------------------------------------------------
 # Command-line entry point
