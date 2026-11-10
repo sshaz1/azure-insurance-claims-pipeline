@@ -22,3 +22,6 @@ secrets/
 .idea/
 .DS_Store
 Thumbs.db
+
+# Ignore generated CSV files
+data/synthetic/*.csv
