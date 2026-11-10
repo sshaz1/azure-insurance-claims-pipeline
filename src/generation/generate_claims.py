@@ -246,5 +246,38 @@ def main(total_claims, seed):
 
 if __name__ == "__main__":
 
-    # Generate 1,000 claims using a reproducible seed.
-    main(total_claims=1000, seed=42)
+    # Create a parser to accept command-line arguments.
+    parser = argparse.ArgumentParser(
+        description="Generate synthetic insurance claims CSV files."
+    )
+
+    # Number of unique insurance claims to generate.
+    # Defaults to 1,000 when --count is not provided.
+    parser.add_argument(
+        "--count",
+        type=int,
+        default=1000,
+        help="Total number of unique claims to generate."
+    )
+
+    # Random seed used to produce reproducible datasets.
+    # The same seed and claim count produce identical records.
+    parser.add_argument(
+        "--seed",
+        type=int,
+        default=42,
+        help="Random seed for reproducible data generation."
+    )
+
+    # Read the command-line arguments.
+    args = parser.parse_args()
+
+    # Reject invalid claim counts.
+    if args.count < 1:
+        parser.error("--count must be a positive integer")
+
+    # Run the generator using the supplied arguments.
+    main(
+        total_claims=args.count,
+        seed=args.seed
+    )
