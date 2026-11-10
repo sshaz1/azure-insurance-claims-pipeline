@@ -61,9 +61,8 @@ For example, a single claim might look like:
 # parents[2] = azure-insurance-claims-pipeline/
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
-# Directory where generated CSV files will be stored.
-OUTPUT_DIR = PROJECT_ROOT / "data" / "synthetic"
-
+# Store clean, generated claims separately from test datasets.
+OUTPUT_DIR = PROJECT_ROOT / "data" / "clean"
 
 # ---------------------------------------------------------
 # Claim generation
