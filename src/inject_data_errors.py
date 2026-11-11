@@ -2,6 +2,7 @@ import argparse
 import csv
 import random
 from pathlib import Path
+from datetime import date, timedelta
 
 # ---------------------------------------------------------
 # Configuration
@@ -107,7 +108,7 @@ def write_claims(file_path, fieldnames, claims):
 # Duplicate record injection
 # ---------------------------------------------------------
 
-def inject_duplicates(claims, rng, duplicate_rate=0.05):
+def inject_duplicates(claims, rng, duplicate_rate):
     """
     Add exact duplicate records to a claims dataset.
 
@@ -139,6 +140,129 @@ def inject_duplicates(claims, rng, duplicate_rate=0.05):
 
     return corrupted_claims
 
+# ---------------------------------------------------------
+# Invalid record injection
+# ---------------------------------------------------------
+def inject_invalid_records(claims, rng, error_rate):
+    """
+    Introduce intentional data quality errors such as
+    missing claim id,
+    invalid status,
+    negative amount,
+    invalid date,
+    invalid chronology,
+    excessive approval
+
+    Args:
+        claims: List of claim dictionaries.
+        rng: Shared random number generator.
+        error_rate: Fraction of records to corrupt.
+
+    Returns:
+        List containing valid and intentionally invalid records.
+    """
+
+    # Create independent copies to protect the original records.
+    corrupted_claims = []
+    for claim in claims:
+        corrupted_claims.append(claim.copy())
+
+    # Calculate how many records should contain errors. 10% for now
+    error_count = round(len(corrupted_claims) * error_rate)
+
+    # Select distinct records to modify.
+    # rng.sample() creates a new list (selected) 
+    # containing references to the same claim dictionaries in corrupted_claims.
+    selected = rng.sample(
+        corrupted_claims,
+        error_count
+    )
+
+    # Available error scenarios.
+    error_types = [
+        "missing_id",
+        "invalid_status",
+        "negative_amount",
+        "invalid_date",
+        "invalid_chronology",
+        "excessive_approval"
+    ]
+
+    # Calculate how many errors of each type to generate.
+    # divmod() gives us the base count and any remainder.
+    # 10% of errors divided by 6 error types
+    # lets say 10 records to be invalid, base = 1, remainder = 4
+    # Each error type happening at least once (base) the first 4 types getting
+    # 1 more (remainder)
+    base, remainder = divmod(error_count, len(error_types))
+
+    # Create a list containing an approximately equal
+    # number of occurrences of each error type.
+    assigned_errors = []
+
+    # enumerate(error_types) gives each type an index starting at 0
+    for i, error_type in enumerate(error_types):
+
+        # Distribute leftover errors across the first types.
+        count = base + (1 if i < remainder else 0)
+
+        # Add the error type to our assignment list.
+        assigned_errors.extend([error_type] * count)
+
+    # Shuffle assignments so errors occur in random order.
+    rng.shuffle(assigned_errors)
+
+    # Assign one error type to each selected record.
+    # zip() pairs the lists by position
+    # each loop gives one claim from selected and its matching error type from assigned_errors
+    for claim, error_type in zip(selected, assigned_errors):
+
+        if error_type == "missing_id":
+
+            # Remove the claim's business identifier.
+            claim["claim_id"] = ""
+
+        elif error_type == "invalid_status":
+
+            # Introduce an unsupported status.
+            claim["status"] = "UNKNOWN"
+
+        elif error_type == "negative_amount":
+
+            # Claimed amounts cannot be negative.
+            claim["claimed_amount"] = "-500.00"
+
+        elif error_type == "invalid_date":
+
+            # February 30 is not a valid calendar date.
+            claim["date_submitted"] = "2026-02-30"
+
+        elif error_type == "invalid_chronology":
+
+            # Convert the submission date string into a date object.
+            submitted = date.fromisoformat(claim["date_submitted"])
+
+            # Set the closure date 1-10 days before submission.
+            days_before = rng.randint(1, 10)
+            invalid_closed = submitted - timedelta(days=days_before)
+
+            # Introduce the invalid chronology.
+            claim["date_closed"] = invalid_closed.isoformat()
+
+        elif error_type == "excessive_approval":
+
+            # Set the claim to APPROVED so the amount
+            # comparison is meaningful.
+            claim["status"] = "APPROVED"
+
+            # Ensure the claim has a valid closure date.
+            claim["date_closed"] = claim["date_submitted"]
+
+            # Approved amounts cannot exceed claimed amounts.
+            claimed = float(claim["claimed_amount"])
+            claim["approved_amount"] = f"{claimed + 1000:.2f}"
+
+    return corrupted_claims
 
 # ---------------------------------------------------------
 # Temporary test: Copy clean claims to test directory
@@ -162,10 +286,17 @@ if __name__ == "__main__":
         # Read the original column names and claims.
         fieldnames, claims = read_claims(file_path)
 
-        # Inject duplicates into the current monthly dataset.
-        # The original clean CSV remains unchanged.
-        corrupted_claims = inject_duplicates(
+        # Introduce invalid values into approximately 5%
+        # of the original monthly claim records.
+        invalid_claims = inject_invalid_records(
             claims,
+            rng,
+            error_rate=0.10 # Corrupt 10% of original records.
+        )
+        # Inject exact duplicates after corrupting selected rows.
+        # Duplicates may therefore include invalid records.
+        corrupted_claims = inject_duplicates(
+            invalid_claims,
             rng,
             duplicate_rate=0.05
         )
@@ -179,11 +310,15 @@ if __name__ == "__main__":
             corrupted_claims
         )
 
+        # Calculate the number of intentional invalid records.
+        invalid_count = round(len(claims) * 0.10)
+
         # Display original and duplicate record counts.
         duplicate_count = len(corrupted_claims) - len(claims)
 
         print(
             f"Copied {file_path.name}: "
             f"{len(claims):,} original records, "
+            f"{invalid_count:,} intentionally invalid, "
             f"{duplicate_count:,} duplicates"
         )
