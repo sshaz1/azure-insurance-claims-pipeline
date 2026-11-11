@@ -3,6 +3,7 @@ import csv
 import random
 from pathlib import Path
 from datetime import date, timedelta
+import json
 
 # ---------------------------------------------------------
 # Configuration
@@ -285,6 +286,23 @@ if __name__ == "__main__":
     # Create one reproducible random generator for all files.
     rng = random.Random(42)
 
+    # Store expected results for every monthly file.
+    # We'll use this later to verify Databricks processing.
+    results = {
+        "seed": 42,
+        "error_rate": 0.10,
+        "duplicate_rate": 0.05,
+        # The months dictionary will hold the results for each CSV file.
+        "months": {} ,
+
+        # Will hold each metric across all months
+        "totals": {"original_records": 0,
+                   "invalid_records_injected": 0,
+                   "duplicate_rows_added": 0,
+                   "total_test_records": 0
+                   } 
+    }
+
     # Find the clean monthly CSV files.
     files = sorted(INPUT_DIR.glob("claims_2026_??.csv"))
 
@@ -322,11 +340,28 @@ if __name__ == "__main__":
             corrupted_claims
         )
 
-        # Calculate the number of intentional invalid records.
-        invalid_count = round(len(claims) * 0.10)
+        # Count intentionally modified source records.
+        # sum(error_counts.values()) adds up all six error type counts.
+        invalid_count = sum(error_counts.values())
 
         # Display original and duplicate record counts.
-        duplicate_count = len(corrupted_claims) - len(claims)
+        duplicate_count = len(corrupted_claims) - len(invalid_claims)
+
+        # Extract the month from the filename.
+        # Example: claims_2026_01.csv -> 2026-01
+        # file_path.stem drops the .csv extension
+        # .replace("claims_", "") removes "claims_"
+        # .replace("_", "-") swaps the remaining underscore for a hyphen
+        month_key = file_path.stem.replace("claims_", "").replace("_", "-")
+
+        # Save this month's expected results.
+        results["months"][month_key] = {
+            "original_records": len(claims),
+            "invalid_records_injected": invalid_count,
+            "duplicate_rows_added": duplicate_count,
+            "total_test_records": len(corrupted_claims),
+            "error_types": error_counts.copy()
+        }
 
         print(
             f"Copied {file_path.name}: "
@@ -337,3 +372,23 @@ if __name__ == "__main__":
 
         for error_type, count in error_counts.items():
             print(f"  {error_type}: {count}")
+
+    for month in results["months"].values():
+        results["totals"]["original_records"] += month["original_records"]
+        results["totals"]["invalid_records_injected"] += month["invalid_records_injected"]
+        results["totals"]["duplicate_rows_added"] += month["duplicate_rows_added"]
+        results["totals"]["total_test_records"] += month["total_test_records"]
+
+    # -----------------------------------------------------
+    # Export expected results to JSON
+    # -----------------------------------------------------
+
+    # Store the manifest beside our generated test CSV files.
+    manifest_path = OUTPUT_DIR / "expected_results.json"
+
+    # Write the results as JSON with four-space indentation.
+    with manifest_path.open("w", encoding="utf-8") as file:
+        json.dump(results, file, indent=4)
+
+    print(f"\nExpected results saved to: {manifest_path}")
+

@@ -1,0 +1,181 @@
+{
+    "seed": 42,
+    "error_rate": 0.1,
+    "duplicate_rate": 0.05,
+    "months": {
+        "2026-01": {
+            "original_records": 84,
+            "invalid_records_injected": 8,
+            "duplicate_rows_added": 4,
+            "total_test_records": 88,
+            "error_types": {
+                "missing_id": 1,
+                "invalid_status": 1,
+                "negative_amount": 1,
+                "invalid_date": 1,
+                "invalid_chronology": 2,
+                "excessive_approval": 2
+            }
+        },
+        "2026-02": {
+            "original_records": 88,
+            "invalid_records_injected": 9,
+            "duplicate_rows_added": 4,
+            "total_test_records": 92,
+            "error_types": {
+                "missing_id": 1,
+                "invalid_status": 1,
+                "negative_amount": 2,
+                "invalid_date": 2,
+                "invalid_chronology": 1,
+                "excessive_approval": 2
+            }
+        },
+        "2026-03": {
+            "original_records": 90,
+            "invalid_records_injected": 9,
+            "duplicate_rows_added": 4,
+            "total_test_records": 94,
+            "error_types": {
+                "missing_id": 1,
+                "invalid_status": 2,
+                "negative_amount": 2,
+                "invalid_date": 1,
+                "invalid_chronology": 2,
+                "excessive_approval": 1
+            }
+        },
+        "2026-04": {
+            "original_records": 95,
+            "invalid_records_injected": 10,
+            "duplicate_rows_added": 5,
+            "total_test_records": 100,
+            "error_types": {
+                "missing_id": 2,
+                "invalid_status": 2,
+                "negative_amount": 1,
+                "invalid_date": 1,
+                "invalid_chronology": 2,
+                "excessive_approval": 2
+            }
+        },
+        "2026-05": {
+            "original_records": 98,
+            "invalid_records_injected": 10,
+            "duplicate_rows_added": 5,
+            "total_test_records": 103,
+            "error_types": {
+                "missing_id": 1,
+                "invalid_status": 2,
+                "negative_amount": 2,
+                "invalid_date": 1,
+                "invalid_chronology": 2,
+                "excessive_approval": 2
+            }
+        },
+        "2026-06": {
+            "original_records": 99,
+            "invalid_records_injected": 10,
+            "duplicate_rows_added": 5,
+            "total_test_records": 104,
+            "error_types": {
+                "missing_id": 2,
+                "invalid_status": 1,
+                "negative_amount": 2,
+                "invalid_date": 1,
+                "invalid_chronology": 2,
+                "excessive_approval": 2
+            }
+        },
+        "2026-07": {
+            "original_records": 99,
+            "invalid_records_injected": 10,
+            "duplicate_rows_added": 5,
+            "total_test_records": 104,
+            "error_types": {
+                "missing_id": 2,
+                "invalid_status": 2,
+                "negative_amount": 2,
+                "invalid_date": 1,
+                "invalid_chronology": 2,
+                "excessive_approval": 1
+            }
+        },
+        "2026-08": {
+            "original_records": 99,
+            "invalid_records_injected": 10,
+            "duplicate_rows_added": 5,
+            "total_test_records": 104,
+            "error_types": {
+                "missing_id": 1,
+                "invalid_status": 2,
+                "negative_amount": 2,
+                "invalid_date": 2,
+                "invalid_chronology": 2,
+                "excessive_approval": 1
+            }
+        },
+        "2026-09": {
+            "original_records": 98,
+            "invalid_records_injected": 10,
+            "duplicate_rows_added": 5,
+            "total_test_records": 103,
+            "error_types": {
+                "missing_id": 2,
+                "invalid_status": 2,
+                "negative_amount": 2,
+                "invalid_date": 2,
+                "invalid_chronology": 1,
+                "excessive_approval": 1
+            }
+        },
+        "2026-10": {
+            "original_records": 99,
+            "invalid_records_injected": 10,
+            "duplicate_rows_added": 5,
+            "total_test_records": 104,
+            "error_types": {
+                "missing_id": 1,
+                "invalid_status": 2,
+                "negative_amount": 2,
+                "invalid_date": 1,
+                "invalid_chronology": 2,
+                "excessive_approval": 2
+            }
+        },
+        "2026-11": {
+            "original_records": 97,
+            "invalid_records_injected": 10,
+            "duplicate_rows_added": 5,
+            "total_test_records": 102,
+            "error_types": {
+                "missing_id": 2,
+                "invalid_status": 2,
+                "negative_amount": 2,
+                "invalid_date": 2,
+                "invalid_chronology": 1,
+                "excessive_approval": 1
+            }
+        },
+        "2026-12": {
+            "original_records": 98,
+            "invalid_records_injected": 10,
+            "duplicate_rows_added": 5,
+            "total_test_records": 103,
+            "error_types": {
+                "missing_id": 2,
+                "invalid_status": 2,
+                "negative_amount": 2,
+                "invalid_date": 2,
+                "invalid_chronology": 1,
+                "excessive_approval": 1
+            }
+        }
+    },
+    "totals": {
+        "original_records": 1144,
+        "invalid_records_injected": 116,
+        "duplicate_rows_added": 57,
+        "total_test_records": 1201
+    }
+}
