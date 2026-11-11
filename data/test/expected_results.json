@@ -18,9 +18,14 @@
             },
             "invalid_record_details": [
                 {
-                    "row_index": 81,
-                    "original_claim_id": "CLM-0000082",
-                    "error_type": "excessive_approval"
+                    "row_index": 3,
+                    "original_claim_id": "CLM-0000004",
+                    "error_type": "invalid_chronology"
+                },
+                {
+                    "row_index": 13,
+                    "original_claim_id": "CLM-0000014",
+                    "error_type": "invalid_status"
                 },
                 {
                     "row_index": 14,
@@ -28,19 +33,9 @@
                     "error_type": "negative_amount"
                 },
                 {
-                    "row_index": 3,
-                    "original_claim_id": "CLM-0000004",
+                    "row_index": 17,
+                    "original_claim_id": "CLM-0000018",
                     "error_type": "invalid_chronology"
-                },
-                {
-                    "row_index": 35,
-                    "original_claim_id": "CLM-0000036",
-                    "error_type": "excessive_approval"
-                },
-                {
-                    "row_index": 31,
-                    "original_claim_id": "CLM-0000032",
-                    "error_type": "missing_id"
                 },
                 {
                     "row_index": 28,
@@ -48,32 +43,37 @@
                     "error_type": "invalid_date"
                 },
                 {
-                    "row_index": 17,
-                    "original_claim_id": "CLM-0000018",
-                    "error_type": "invalid_chronology"
+                    "row_index": 31,
+                    "original_claim_id": "CLM-0000032",
+                    "error_type": "missing_id"
                 },
                 {
-                    "row_index": 13,
-                    "original_claim_id": "CLM-0000014",
-                    "error_type": "invalid_status"
+                    "row_index": 35,
+                    "original_claim_id": "CLM-0000036",
+                    "error_type": "excessive_approval"
+                },
+                {
+                    "row_index": 81,
+                    "original_claim_id": "CLM-0000082",
+                    "error_type": "excessive_approval"
                 }
             ],
             "duplicate_record_details": [
                 {
-                    "source_row_index": 77,
-                    "claim_id": "CLM-0000078"
-                },
-                {
                     "source_row_index": 3,
                     "claim_id": "CLM-0000004"
+                },
+                {
+                    "source_row_index": 25,
+                    "claim_id": "CLM-0000026"
                 },
                 {
                     "source_row_index": 71,
                     "claim_id": "CLM-0000072"
                 },
                 {
-                    "source_row_index": 25,
-                    "claim_id": "CLM-0000026"
+                    "source_row_index": 77,
+                    "claim_id": "CLM-0000078"
                 }
             ]
         },
@@ -92,41 +92,6 @@
             },
             "invalid_record_details": [
                 {
-                    "row_index": 83,
-                    "original_claim_id": "CLM-0000164",
-                    "error_type": "invalid_date"
-                },
-                {
-                    "row_index": 69,
-                    "original_claim_id": "CLM-0000150",
-                    "error_type": "negative_amount"
-                },
-                {
-                    "row_index": 53,
-                    "original_claim_id": "CLM-0000134",
-                    "error_type": "invalid_chronology"
-                },
-                {
-                    "row_index": 28,
-                    "original_claim_id": "CLM-0000109",
-                    "error_type": "excessive_approval"
-                },
-                {
-                    "row_index": 57,
-                    "original_claim_id": "CLM-0000138",
-                    "error_type": "missing_id"
-                },
-                {
-                    "row_index": 75,
-                    "original_claim_id": "CLM-0000156",
-                    "error_type": "excessive_approval"
-                },
-                {
-                    "row_index": 35,
-                    "original_claim_id": "CLM-0000116",
-                    "error_type": "invalid_status"
-                },
-                {
                     "row_index": 0,
                     "original_claim_id": "CLM-0000026",
                     "error_type": "negative_amount"
@@ -135,9 +100,52 @@
                     "row_index": 20,
                     "original_claim_id": "CLM-0000101",
                     "error_type": "invalid_date"
+                },
+                {
+                    "row_index": 28,
+                    "original_claim_id": "CLM-0000109",
+                    "error_type": "excessive_approval"
+                },
+                {
+                    "row_index": 35,
+                    "original_claim_id": "CLM-0000116",
+                    "error_type": "invalid_status"
+                },
+                {
+                    "row_index": 53,
+                    "original_claim_id": "CLM-0000134",
+                    "error_type": "invalid_chronology"
+                },
+                {
+                    "row_index": 57,
+                    "original_claim_id": "CLM-0000138",
+                    "error_type": "missing_id"
+                },
+                {
+                    "row_index": 69,
+                    "original_claim_id": "CLM-0000150",
+                    "error_type": "negative_amount"
+                },
+                {
+                    "row_index": 75,
+                    "original_claim_id": "CLM-0000156",
+                    "error_type": "excessive_approval"
+                },
+                {
+                    "row_index": 83,
+                    "original_claim_id": "CLM-0000164",
+                    "error_type": "invalid_date"
                 }
             ],
             "duplicate_record_details": [
+                {
+                    "source_row_index": 5,
+                    "claim_id": "CLM-0000086"
+                },
+                {
+                    "source_row_index": 33,
+                    "claim_id": "CLM-0000114"
+                },
                 {
                     "source_row_index": 44,
                     "claim_id": "CLM-0000125"
@@ -145,14 +153,6 @@
                 {
                     "source_row_index": 77,
                     "claim_id": "CLM-0000158"
-                },
-                {
-                    "source_row_index": 33,
-                    "claim_id": "CLM-0000114"
-                },
-                {
-                    "source_row_index": 5,
-                    "claim_id": "CLM-0000086"
                 }
             ]
         },
@@ -171,6 +171,26 @@
             },
             "invalid_record_details": [
                 {
+                    "row_index": 10,
+                    "original_claim_id": "CLM-0000173",
+                    "error_type": "invalid_status"
+                },
+                {
+                    "row_index": 15,
+                    "original_claim_id": "CLM-0000178",
+                    "error_type": "negative_amount"
+                },
+                {
+                    "row_index": 37,
+                    "original_claim_id": "CLM-0000200",
+                    "error_type": "invalid_date"
+                },
+                {
+                    "row_index": 48,
+                    "original_claim_id": "CLM-0000211",
+                    "error_type": "invalid_chronology"
+                },
+                {
                     "row_index": 58,
                     "original_claim_id": "CLM-0000221",
                     "error_type": "invalid_chronology"
@@ -181,42 +201,30 @@
                     "error_type": "negative_amount"
                 },
                 {
-                    "row_index": 15,
-                    "original_claim_id": "CLM-0000178",
-                    "error_type": "negative_amount"
-                },
-                {
-                    "row_index": 48,
-                    "original_claim_id": "CLM-0000211",
-                    "error_type": "invalid_chronology"
-                },
-                {
-                    "row_index": 10,
-                    "original_claim_id": "CLM-0000173",
-                    "error_type": "invalid_status"
-                },
-                {
                     "row_index": 70,
                     "original_claim_id": "CLM-0000233",
                     "error_type": "excessive_approval"
                 },
                 {
-                    "row_index": 37,
-                    "original_claim_id": "CLM-0000200",
-                    "error_type": "invalid_date"
+                    "row_index": 79,
+                    "original_claim_id": "CLM-0000242",
+                    "error_type": "invalid_status"
                 },
                 {
                     "row_index": 80,
                     "original_claim_id": "CLM-0000243",
                     "error_type": "missing_id"
-                },
-                {
-                    "row_index": 79,
-                    "original_claim_id": "CLM-0000242",
-                    "error_type": "invalid_status"
                 }
             ],
             "duplicate_record_details": [
+                {
+                    "source_row_index": 20,
+                    "claim_id": "CLM-0000183"
+                },
+                {
+                    "source_row_index": 46,
+                    "claim_id": "CLM-0000209"
+                },
                 {
                     "source_row_index": 58,
                     "claim_id": "CLM-0000221"
@@ -224,14 +232,6 @@
                 {
                     "source_row_index": 81,
                     "claim_id": "CLM-0000244"
-                },
-                {
-                    "source_row_index": 46,
-                    "claim_id": "CLM-0000209"
-                },
-                {
-                    "source_row_index": 20,
-                    "claim_id": "CLM-0000183"
                 }
             ]
         },
@@ -250,14 +250,9 @@
             },
             "invalid_record_details": [
                 {
-                    "row_index": 47,
-                    "original_claim_id": "CLM-0000289",
-                    "error_type": "missing_id"
-                },
-                {
-                    "row_index": 45,
-                    "original_claim_id": "CLM-0000287",
-                    "error_type": "invalid_status"
+                    "row_index": 9,
+                    "original_claim_id": "CLM-0000215",
+                    "error_type": "invalid_chronology"
                 },
                 {
                     "row_index": 26,
@@ -265,24 +260,24 @@
                     "error_type": "invalid_status"
                 },
                 {
-                    "row_index": 85,
-                    "original_claim_id": "CLM-0000327",
-                    "error_type": "missing_id"
-                },
-                {
                     "row_index": 34,
                     "original_claim_id": "CLM-0000276",
                     "error_type": "excessive_approval"
                 },
                 {
-                    "row_index": 89,
-                    "original_claim_id": "CLM-0000331",
-                    "error_type": "excessive_approval"
+                    "row_index": 45,
+                    "original_claim_id": "CLM-0000287",
+                    "error_type": "invalid_status"
                 },
                 {
-                    "row_index": 87,
-                    "original_claim_id": "CLM-0000329",
-                    "error_type": "invalid_date"
+                    "row_index": 47,
+                    "original_claim_id": "CLM-0000289",
+                    "error_type": "missing_id"
+                },
+                {
+                    "row_index": 77,
+                    "original_claim_id": "CLM-0000319",
+                    "error_type": "invalid_chronology"
                 },
                 {
                     "row_index": 82,
@@ -290,14 +285,19 @@
                     "error_type": "negative_amount"
                 },
                 {
-                    "row_index": 9,
-                    "original_claim_id": "CLM-0000215",
-                    "error_type": "invalid_chronology"
+                    "row_index": 85,
+                    "original_claim_id": "CLM-0000327",
+                    "error_type": "missing_id"
                 },
                 {
-                    "row_index": 77,
-                    "original_claim_id": "CLM-0000319",
-                    "error_type": "invalid_chronology"
+                    "row_index": 87,
+                    "original_claim_id": "CLM-0000329",
+                    "error_type": "invalid_date"
+                },
+                {
+                    "row_index": 89,
+                    "original_claim_id": "CLM-0000331",
+                    "error_type": "excessive_approval"
                 }
             ],
             "duplicate_record_details": [
@@ -306,20 +306,20 @@
                     "claim_id": "CLM-0000198"
                 },
                 {
-                    "source_row_index": 40,
-                    "claim_id": "CLM-0000282"
-                },
-                {
-                    "source_row_index": 51,
-                    "claim_id": "CLM-0000293"
+                    "source_row_index": 8,
+                    "claim_id": "CLM-0000213"
                 },
                 {
                     "source_row_index": 34,
                     "claim_id": "CLM-0000276"
                 },
                 {
-                    "source_row_index": 8,
-                    "claim_id": "CLM-0000213"
+                    "source_row_index": 40,
+                    "claim_id": "CLM-0000282"
+                },
+                {
+                    "source_row_index": 51,
+                    "claim_id": "CLM-0000293"
                 }
             ]
         },
@@ -338,18 +338,13 @@
             },
             "invalid_record_details": [
                 {
+                    "row_index": 18,
+                    "original_claim_id": "CLM-0000340",
+                    "error_type": "excessive_approval"
+                },
+                {
                     "row_index": 27,
                     "original_claim_id": "CLM-0000349",
-                    "error_type": "invalid_status"
-                },
-                {
-                    "row_index": 72,
-                    "original_claim_id": "CLM-0000394",
-                    "error_type": "missing_id"
-                },
-                {
-                    "row_index": 91,
-                    "original_claim_id": "CLM-0000413",
                     "error_type": "invalid_status"
                 },
                 {
@@ -358,24 +353,9 @@
                     "error_type": "invalid_chronology"
                 },
                 {
-                    "row_index": 83,
-                    "original_claim_id": "CLM-0000405",
-                    "error_type": "negative_amount"
-                },
-                {
-                    "row_index": 63,
-                    "original_claim_id": "CLM-0000385",
-                    "error_type": "invalid_chronology"
-                },
-                {
                     "row_index": 50,
                     "original_claim_id": "CLM-0000372",
                     "error_type": "invalid_date"
-                },
-                {
-                    "row_index": 82,
-                    "original_claim_id": "CLM-0000404",
-                    "error_type": "negative_amount"
                 },
                 {
                     "row_index": 58,
@@ -383,31 +363,51 @@
                     "error_type": "excessive_approval"
                 },
                 {
-                    "row_index": 18,
-                    "original_claim_id": "CLM-0000340",
-                    "error_type": "excessive_approval"
+                    "row_index": 63,
+                    "original_claim_id": "CLM-0000385",
+                    "error_type": "invalid_chronology"
+                },
+                {
+                    "row_index": 72,
+                    "original_claim_id": "CLM-0000394",
+                    "error_type": "missing_id"
+                },
+                {
+                    "row_index": 82,
+                    "original_claim_id": "CLM-0000404",
+                    "error_type": "negative_amount"
+                },
+                {
+                    "row_index": 83,
+                    "original_claim_id": "CLM-0000405",
+                    "error_type": "negative_amount"
+                },
+                {
+                    "row_index": 91,
+                    "original_claim_id": "CLM-0000413",
+                    "error_type": "invalid_status"
                 }
             ],
             "duplicate_record_details": [
                 {
-                    "source_row_index": 63,
-                    "claim_id": "CLM-0000385"
+                    "source_row_index": 6,
+                    "claim_id": "CLM-0000176"
                 },
                 {
                     "source_row_index": 11,
                     "claim_id": "CLM-0000307"
                 },
                 {
-                    "source_row_index": 96,
-                    "claim_id": "CLM-0000418"
-                },
-                {
-                    "source_row_index": 6,
-                    "claim_id": "CLM-0000176"
-                },
-                {
                     "source_row_index": 14,
                     "claim_id": "CLM-0000333"
+                },
+                {
+                    "source_row_index": 63,
+                    "claim_id": "CLM-0000385"
+                },
+                {
+                    "source_row_index": 96,
+                    "claim_id": "CLM-0000418"
                 }
             ]
         },
@@ -426,14 +426,14 @@
             },
             "invalid_record_details": [
                 {
+                    "row_index": 8,
+                    "original_claim_id": "CLM-0000329",
+                    "error_type": "invalid_chronology"
+                },
+                {
                     "row_index": 19,
                     "original_claim_id": "CLM-0000423",
                     "error_type": "negative_amount"
-                },
-                {
-                    "row_index": 80,
-                    "original_claim_id": "CLM-0000484",
-                    "error_type": "invalid_chronology"
                 },
                 {
                     "row_index": 20,
@@ -441,24 +441,9 @@
                     "error_type": "excessive_approval"
                 },
                 {
-                    "row_index": 87,
-                    "original_claim_id": "CLM-0000491",
-                    "error_type": "missing_id"
-                },
-                {
-                    "row_index": 54,
-                    "original_claim_id": "CLM-0000458",
-                    "error_type": "invalid_status"
-                },
-                {
-                    "row_index": 76,
-                    "original_claim_id": "CLM-0000480",
-                    "error_type": "invalid_date"
-                },
-                {
-                    "row_index": 8,
-                    "original_claim_id": "CLM-0000329",
-                    "error_type": "invalid_chronology"
+                    "row_index": 48,
+                    "original_claim_id": "CLM-0000452",
+                    "error_type": "excessive_approval"
                 },
                 {
                     "row_index": 49,
@@ -466,13 +451,28 @@
                     "error_type": "negative_amount"
                 },
                 {
-                    "row_index": 48,
-                    "original_claim_id": "CLM-0000452",
-                    "error_type": "excessive_approval"
+                    "row_index": 54,
+                    "original_claim_id": "CLM-0000458",
+                    "error_type": "invalid_status"
                 },
                 {
                     "row_index": 59,
                     "original_claim_id": "CLM-0000463",
+                    "error_type": "missing_id"
+                },
+                {
+                    "row_index": 76,
+                    "original_claim_id": "CLM-0000480",
+                    "error_type": "invalid_date"
+                },
+                {
+                    "row_index": 80,
+                    "original_claim_id": "CLM-0000484",
+                    "error_type": "invalid_chronology"
+                },
+                {
+                    "row_index": 87,
+                    "original_claim_id": "CLM-0000491",
                     "error_type": "missing_id"
                 }
             ],
@@ -482,16 +482,16 @@
                     "claim_id": "CLM-0000073"
                 },
                 {
-                    "source_row_index": 92,
-                    "claim_id": "CLM-0000496"
-                },
-                {
                     "source_row_index": 33,
                     "claim_id": "CLM-0000437"
                 },
                 {
                     "source_row_index": 64,
                     "claim_id": "CLM-0000468"
+                },
+                {
+                    "source_row_index": 92,
+                    "claim_id": "CLM-0000496"
                 },
                 {
                     "source_row_index": 97,
@@ -514,23 +514,23 @@
             },
             "invalid_record_details": [
                 {
-                    "row_index": 22,
-                    "original_claim_id": "CLM-0000509",
-                    "error_type": "invalid_status"
-                },
-                {
-                    "row_index": 64,
-                    "original_claim_id": "CLM-0000551",
-                    "error_type": "negative_amount"
-                },
-                {
                     "row_index": 13,
                     "original_claim_id": "CLM-0000445",
                     "error_type": "invalid_date"
                 },
                 {
-                    "row_index": 80,
-                    "original_claim_id": "CLM-0000567",
+                    "row_index": 19,
+                    "original_claim_id": "CLM-0000506",
+                    "error_type": "invalid_chronology"
+                },
+                {
+                    "row_index": 22,
+                    "original_claim_id": "CLM-0000509",
+                    "error_type": "invalid_status"
+                },
+                {
+                    "row_index": 25,
+                    "original_claim_id": "CLM-0000512",
                     "error_type": "missing_id"
                 },
                 {
@@ -539,9 +539,14 @@
                     "error_type": "excessive_approval"
                 },
                 {
-                    "row_index": 81,
-                    "original_claim_id": "CLM-0000568",
-                    "error_type": "invalid_status"
+                    "row_index": 47,
+                    "original_claim_id": "CLM-0000534",
+                    "error_type": "negative_amount"
+                },
+                {
+                    "row_index": 64,
+                    "original_claim_id": "CLM-0000551",
+                    "error_type": "negative_amount"
                 },
                 {
                     "row_index": 77,
@@ -549,37 +554,32 @@
                     "error_type": "invalid_chronology"
                 },
                 {
-                    "row_index": 25,
-                    "original_claim_id": "CLM-0000512",
+                    "row_index": 80,
+                    "original_claim_id": "CLM-0000567",
                     "error_type": "missing_id"
                 },
                 {
-                    "row_index": 19,
-                    "original_claim_id": "CLM-0000506",
-                    "error_type": "invalid_chronology"
-                },
-                {
-                    "row_index": 47,
-                    "original_claim_id": "CLM-0000534",
-                    "error_type": "negative_amount"
+                    "row_index": 81,
+                    "original_claim_id": "CLM-0000568",
+                    "error_type": "invalid_status"
                 }
             ],
             "duplicate_record_details": [
                 {
-                    "source_row_index": 10,
-                    "claim_id": "CLM-0000382"
+                    "source_row_index": 8,
+                    "claim_id": "CLM-0000334"
                 },
                 {
-                    "source_row_index": 93,
-                    "claim_id": "CLM-0000580"
+                    "source_row_index": 10,
+                    "claim_id": "CLM-0000382"
                 },
                 {
                     "source_row_index": 62,
                     "claim_id": "CLM-0000549"
                 },
                 {
-                    "source_row_index": 8,
-                    "claim_id": "CLM-0000334"
+                    "source_row_index": 93,
+                    "claim_id": "CLM-0000580"
                 },
                 {
                     "source_row_index": 97,
@@ -602,34 +602,9 @@
             },
             "invalid_record_details": [
                 {
-                    "row_index": 68,
-                    "original_claim_id": "CLM-0000638",
-                    "error_type": "invalid_status"
-                },
-                {
-                    "row_index": 98,
-                    "original_claim_id": "CLM-0000668",
-                    "error_type": "invalid_status"
-                },
-                {
                     "row_index": 16,
                     "original_claim_id": "CLM-0000586",
                     "error_type": "invalid_chronology"
-                },
-                {
-                    "row_index": 84,
-                    "original_claim_id": "CLM-0000654",
-                    "error_type": "missing_id"
-                },
-                {
-                    "row_index": 60,
-                    "original_claim_id": "CLM-0000630",
-                    "error_type": "invalid_chronology"
-                },
-                {
-                    "row_index": 70,
-                    "original_claim_id": "CLM-0000640",
-                    "error_type": "excessive_approval"
                 },
                 {
                     "row_index": 21,
@@ -642,14 +617,39 @@
                     "error_type": "invalid_date"
                 },
                 {
+                    "row_index": 60,
+                    "original_claim_id": "CLM-0000630",
+                    "error_type": "invalid_chronology"
+                },
+                {
                     "row_index": 67,
                     "original_claim_id": "CLM-0000637",
                     "error_type": "invalid_date"
                 },
                 {
+                    "row_index": 68,
+                    "original_claim_id": "CLM-0000638",
+                    "error_type": "invalid_status"
+                },
+                {
+                    "row_index": 70,
+                    "original_claim_id": "CLM-0000640",
+                    "error_type": "excessive_approval"
+                },
+                {
                     "row_index": 77,
                     "original_claim_id": "CLM-0000647",
                     "error_type": "negative_amount"
+                },
+                {
+                    "row_index": 84,
+                    "original_claim_id": "CLM-0000654",
+                    "error_type": "missing_id"
+                },
+                {
+                    "row_index": 98,
+                    "original_claim_id": "CLM-0000668",
+                    "error_type": "invalid_status"
                 }
             ],
             "duplicate_record_details": [
@@ -658,20 +658,20 @@
                     "claim_id": "CLM-0000226"
                 },
                 {
-                    "source_row_index": 75,
-                    "claim_id": "CLM-0000645"
-                },
-                {
-                    "source_row_index": 70,
-                    "claim_id": "CLM-0000640"
+                    "source_row_index": 28,
+                    "claim_id": "CLM-0000598"
                 },
                 {
                     "source_row_index": 29,
                     "claim_id": "CLM-0000599"
                 },
                 {
-                    "source_row_index": 28,
-                    "claim_id": "CLM-0000598"
+                    "source_row_index": 70,
+                    "claim_id": "CLM-0000640"
+                },
+                {
+                    "source_row_index": 75,
+                    "claim_id": "CLM-0000645"
                 }
             ]
         },
@@ -695,18 +695,8 @@
                     "error_type": "negative_amount"
                 },
                 {
-                    "row_index": 9,
-                    "original_claim_id": "CLM-0000598",
-                    "error_type": "excessive_approval"
-                },
-                {
-                    "row_index": 90,
-                    "original_claim_id": "CLM-0000744",
-                    "error_type": "missing_id"
-                },
-                {
-                    "row_index": 80,
-                    "original_claim_id": "CLM-0000734",
+                    "row_index": 4,
+                    "original_claim_id": "CLM-0000469",
                     "error_type": "invalid_date"
                 },
                 {
@@ -715,19 +705,19 @@
                     "error_type": "negative_amount"
                 },
                 {
-                    "row_index": 29,
-                    "original_claim_id": "CLM-0000683",
-                    "error_type": "invalid_status"
-                },
-                {
                     "row_index": 8,
                     "original_claim_id": "CLM-0000563",
                     "error_type": "missing_id"
                 },
                 {
-                    "row_index": 4,
-                    "original_claim_id": "CLM-0000469",
-                    "error_type": "invalid_date"
+                    "row_index": 9,
+                    "original_claim_id": "CLM-0000598",
+                    "error_type": "excessive_approval"
+                },
+                {
+                    "row_index": 29,
+                    "original_claim_id": "CLM-0000683",
+                    "error_type": "invalid_status"
                 },
                 {
                     "row_index": 42,
@@ -738,6 +728,16 @@
                     "row_index": 65,
                     "original_claim_id": "CLM-0000719",
                     "error_type": "invalid_chronology"
+                },
+                {
+                    "row_index": 80,
+                    "original_claim_id": "CLM-0000734",
+                    "error_type": "invalid_date"
+                },
+                {
+                    "row_index": 90,
+                    "original_claim_id": "CLM-0000744",
+                    "error_type": "missing_id"
                 }
             ],
             "duplicate_record_details": [
@@ -746,12 +746,12 @@
                     "claim_id": "CLM-0000699"
                 },
                 {
-                    "source_row_index": 54,
-                    "claim_id": "CLM-0000708"
-                },
-                {
                     "source_row_index": 52,
                     "claim_id": "CLM-0000706"
+                },
+                {
+                    "source_row_index": 54,
+                    "claim_id": "CLM-0000708"
                 },
                 {
                     "source_row_index": 59,
@@ -783,18 +783,8 @@
                     "error_type": "invalid_date"
                 },
                 {
-                    "row_index": 86,
-                    "original_claim_id": "CLM-0000822",
-                    "error_type": "negative_amount"
-                },
-                {
-                    "row_index": 83,
-                    "original_claim_id": "CLM-0000819",
-                    "error_type": "missing_id"
-                },
-                {
-                    "row_index": 82,
-                    "original_claim_id": "CLM-0000818",
+                    "row_index": 7,
+                    "original_claim_id": "CLM-0000652",
                     "error_type": "excessive_approval"
                 },
                 {
@@ -803,18 +793,8 @@
                     "error_type": "negative_amount"
                 },
                 {
-                    "row_index": 7,
-                    "original_claim_id": "CLM-0000652",
-                    "error_type": "excessive_approval"
-                },
-                {
-                    "row_index": 51,
-                    "original_claim_id": "CLM-0000787",
-                    "error_type": "invalid_status"
-                },
-                {
-                    "row_index": 93,
-                    "original_claim_id": "CLM-0000829",
+                    "row_index": 13,
+                    "original_claim_id": "CLM-0000693",
                     "error_type": "invalid_chronology"
                 },
                 {
@@ -823,31 +803,51 @@
                     "error_type": "invalid_status"
                 },
                 {
-                    "row_index": 13,
-                    "original_claim_id": "CLM-0000693",
+                    "row_index": 51,
+                    "original_claim_id": "CLM-0000787",
+                    "error_type": "invalid_status"
+                },
+                {
+                    "row_index": 82,
+                    "original_claim_id": "CLM-0000818",
+                    "error_type": "excessive_approval"
+                },
+                {
+                    "row_index": 83,
+                    "original_claim_id": "CLM-0000819",
+                    "error_type": "missing_id"
+                },
+                {
+                    "row_index": 86,
+                    "original_claim_id": "CLM-0000822",
+                    "error_type": "negative_amount"
+                },
+                {
+                    "row_index": 93,
+                    "original_claim_id": "CLM-0000829",
                     "error_type": "invalid_chronology"
                 }
             ],
             "duplicate_record_details": [
                 {
+                    "source_row_index": 1,
+                    "claim_id": "CLM-0000265"
+                },
+                {
                     "source_row_index": 6,
                     "claim_id": "CLM-0000554"
                 },
                 {
-                    "source_row_index": 83,
-                    "claim_id": ""
+                    "source_row_index": 11,
+                    "claim_id": "CLM-0000685"
                 },
                 {
                     "source_row_index": 69,
                     "claim_id": "CLM-0000805"
                 },
                 {
-                    "source_row_index": 1,
-                    "claim_id": "CLM-0000265"
-                },
-                {
-                    "source_row_index": 11,
-                    "claim_id": "CLM-0000685"
+                    "source_row_index": 83,
+                    "claim_id": ""
                 }
             ]
         },
@@ -866,14 +866,9 @@
             },
             "invalid_record_details": [
                 {
-                    "row_index": 96,
-                    "original_claim_id": "CLM-0000917",
-                    "error_type": "invalid_status"
-                },
-                {
-                    "row_index": 30,
-                    "original_claim_id": "CLM-0000851",
-                    "error_type": "excessive_approval"
+                    "row_index": 7,
+                    "original_claim_id": "CLM-0000742",
+                    "error_type": "invalid_date"
                 },
                 {
                     "row_index": 21,
@@ -881,24 +876,19 @@
                     "error_type": "missing_id"
                 },
                 {
-                    "row_index": 52,
-                    "original_claim_id": "CLM-0000873",
-                    "error_type": "negative_amount"
-                },
-                {
-                    "row_index": 62,
-                    "original_claim_id": "CLM-0000883",
-                    "error_type": "invalid_status"
-                },
-                {
-                    "row_index": 61,
-                    "original_claim_id": "CLM-0000882",
-                    "error_type": "invalid_chronology"
-                },
-                {
                     "row_index": 27,
                     "original_claim_id": "CLM-0000848",
                     "error_type": "missing_id"
+                },
+                {
+                    "row_index": 30,
+                    "original_claim_id": "CLM-0000851",
+                    "error_type": "excessive_approval"
+                },
+                {
+                    "row_index": 48,
+                    "original_claim_id": "CLM-0000869",
+                    "error_type": "negative_amount"
                 },
                 {
                     "row_index": 51,
@@ -906,28 +896,34 @@
                     "error_type": "invalid_date"
                 },
                 {
-                    "row_index": 7,
-                    "original_claim_id": "CLM-0000742",
-                    "error_type": "invalid_date"
+                    "row_index": 52,
+                    "original_claim_id": "CLM-0000873",
+                    "error_type": "negative_amount"
                 },
                 {
-                    "row_index": 48,
-                    "original_claim_id": "CLM-0000869",
-                    "error_type": "negative_amount"
+                    "row_index": 61,
+                    "original_claim_id": "CLM-0000882",
+                    "error_type": "invalid_chronology"
+                },
+                {
+                    "row_index": 62,
+                    "original_claim_id": "CLM-0000883",
+                    "error_type": "invalid_status"
+                },
+                {
+                    "row_index": 96,
+                    "original_claim_id": "CLM-0000917",
+                    "error_type": "invalid_status"
                 }
             ],
             "duplicate_record_details": [
-                {
-                    "source_row_index": 7,
-                    "claim_id": "CLM-0000742"
-                },
                 {
                     "source_row_index": 6,
                     "claim_id": "CLM-0000728"
                 },
                 {
-                    "source_row_index": 74,
-                    "claim_id": "CLM-0000895"
+                    "source_row_index": 7,
+                    "claim_id": "CLM-0000742"
                 },
                 {
                     "source_row_index": 61,
@@ -936,6 +932,10 @@
                 {
                     "source_row_index": 64,
                     "claim_id": "CLM-0000885"
+                },
+                {
+                    "source_row_index": 74,
+                    "claim_id": "CLM-0000895"
                 }
             ]
         },
@@ -954,23 +954,13 @@
             },
             "invalid_record_details": [
                 {
-                    "row_index": 67,
-                    "original_claim_id": "CLM-0000970",
-                    "error_type": "invalid_date"
-                },
-                {
-                    "row_index": 20,
-                    "original_claim_id": "CLM-0000923",
-                    "error_type": "invalid_chronology"
-                },
-                {
                     "row_index": 7,
                     "original_claim_id": "CLM-0000739",
                     "error_type": "invalid_date"
                 },
                 {
-                    "row_index": 65,
-                    "original_claim_id": "CLM-0000968",
+                    "row_index": 8,
+                    "original_claim_id": "CLM-0000790",
                     "error_type": "invalid_status"
                 },
                 {
@@ -979,14 +969,29 @@
                     "error_type": "negative_amount"
                 },
                 {
+                    "row_index": 20,
+                    "original_claim_id": "CLM-0000923",
+                    "error_type": "invalid_chronology"
+                },
+                {
                     "row_index": 23,
                     "original_claim_id": "CLM-0000926",
                     "error_type": "negative_amount"
                 },
                 {
-                    "row_index": 8,
-                    "original_claim_id": "CLM-0000790",
+                    "row_index": 30,
+                    "original_claim_id": "CLM-0000933",
+                    "error_type": "excessive_approval"
+                },
+                {
+                    "row_index": 65,
+                    "original_claim_id": "CLM-0000968",
                     "error_type": "invalid_status"
+                },
+                {
+                    "row_index": 67,
+                    "original_claim_id": "CLM-0000970",
+                    "error_type": "invalid_date"
                 },
                 {
                     "row_index": 76,
@@ -997,14 +1002,13 @@
                     "row_index": 86,
                     "original_claim_id": "CLM-0000989",
                     "error_type": "missing_id"
-                },
-                {
-                    "row_index": 30,
-                    "original_claim_id": "CLM-0000933",
-                    "error_type": "excessive_approval"
                 }
             ],
             "duplicate_record_details": [
+                {
+                    "source_row_index": 16,
+                    "claim_id": "CLM-0000919"
+                },
                 {
                     "source_row_index": 30,
                     "claim_id": "CLM-0000933"
@@ -1016,10 +1020,6 @@
                 {
                     "source_row_index": 50,
                     "claim_id": "CLM-0000953"
-                },
-                {
-                    "source_row_index": 16,
-                    "claim_id": "CLM-0000919"
                 },
                 {
                     "source_row_index": 85,

@@ -150,6 +150,9 @@ def inject_duplicates(claims, rng, duplicate_rate):
     # Combine original records with the duplicates.
     duplicated_claims = claims + duplicates
 
+    # Sort duplicated records by their original source row index.
+    duplicate_details.sort(key=lambda duplicate: duplicate["source_row_index"])
+
     return duplicated_claims, duplicate_details
 
 # ---------------------------------------------------------
@@ -295,6 +298,9 @@ def inject_invalid_records(claims, rng, error_rate):
             # Approved amounts cannot exceed claimed amounts.
             claimed = float(claim["claimed_amount"])
             claim["approved_amount"] = f"{claimed + 1000:.2f}"
+
+    # Sort invalid records by their original row index.
+    injected_errors.sort(key=lambda error: error["row_index"])
 
     # Return modified records, summary counts, and individual errors.
     return corrupted_claims, error_counts, injected_errors
