@@ -36,11 +36,7 @@ def read_claims(file_path):
     """
 
     # Open the CSV file for reading.
-    with file_path.open(
-        "r",
-        newline="",
-        encoding="utf-8"
-    ) as file:
+    with file_path.open("r",newline="",encoding="utf-8") as file:
 
         # creates a reader ready to read the CSV
         reader = csv.DictReader(file)
@@ -119,27 +115,42 @@ def inject_duplicates(claims, rng, duplicate_rate):
         duplicate_rate: Percentage of records to duplicate.
 
     Returns:
-        List containing original records and duplicates.
+        A tuple containing:
+        - Original records plus duplicates
+        - Details of the duplicated records
     """
 
     # Calculate the number of duplicates to introduce. 5% for now
     duplicate_count = round(len(claims) * duplicate_rate)
 
-    # Randomly select records to duplicate.
     # sample() selects without replacement.
     # Selecting 5% of claims randomly to duplicate
-    selected = rng.sample(claims, duplicate_count)
+    # Select row indices to duplicate.
+    selected_indices = rng.sample(range(len(claims)),duplicate_count)
 
     # claim.copy() Creates a separate dictionary containing the same field values.
     # copy the claim in selected as a list and store in duplicates
     duplicates = []
-    for claim in selected:
-        duplicates.append(claim.copy())
+    duplicate_details = []
+
+    for row_index in selected_indices:
+
+        # Get the record being duplicated.
+        original = claims[row_index]
+
+        # Create an independent copy of the record.
+        duplicates.append(original.copy())
+
+        # Track which original row was duplicated.
+        duplicate_details.append({
+            "source_row_index": row_index,
+            "claim_id": original["claim_id"]
+        })
 
     # Combine original records with the duplicates.
-    corrupted_claims = claims + duplicates
+    duplicated_claims = claims + duplicates
 
-    return corrupted_claims
+    return duplicated_claims, duplicate_details
 
 # ---------------------------------------------------------
 # Invalid record injection
@@ -160,7 +171,7 @@ def inject_invalid_records(claims, rng, error_rate):
         error_rate: Fraction of records to corrupt.
 
     Returns:
-        List containing valid and intentionally invalid records.
+        Returns modified records, summary counts, and individual errors.
     """
 
     # Create independent copies to protect the original records.
@@ -171,13 +182,12 @@ def inject_invalid_records(claims, rng, error_rate):
     # Calculate how many records should contain errors. 10% for now
     error_count = round(len(corrupted_claims) * error_rate)
 
-    # Select distinct records to modify.
-    # rng.sample() creates a new list (selected) 
-    # containing references to the same claim dictionaries in corrupted_claims.
-    selected = rng.sample(
-        corrupted_claims,
-        error_count
-    )
+    # Select random row indices rather than claim dictionaries.
+    # This lets us identify exactly which CSV rows were modified.
+    selected_indices = rng.sample(range(len(corrupted_claims)),error_count)
+
+    # Store information about each intentionally corrupted record.
+    injected_errors = []
 
     # Available error scenarios.
     error_types = [
@@ -222,10 +232,21 @@ def inject_invalid_records(claims, rng, error_rate):
     # Shuffle assignments so errors occur in random order.
     rng.shuffle(assigned_errors)
 
-    # Assign one error type to each selected record.
-    # zip() pairs the lists by position
-    # each loop gives one claim from selected and its matching error type from assigned_errors
-    for claim, error_type in zip(selected, assigned_errors):
+    # Pair selected row positions with their assigned error types.
+    for row_index, error_type in zip(selected_indices, assigned_errors):
+
+        # Access the record we're going to corrupt.
+        claim = corrupted_claims[row_index]
+
+        # Save the original claim ID before modifying anything.
+        original_claim_id = claim["claim_id"]
+
+        # Record which claim was modified and why.
+        injected_errors.append({
+            "row_index": row_index,
+            "original_claim_id": original_claim_id,
+            "error_type": error_type
+        })
 
         # Record which error type we're introducing.
         error_counts[error_type] += 1
@@ -275,7 +296,8 @@ def inject_invalid_records(claims, rng, error_rate):
             claimed = float(claim["claimed_amount"])
             claim["approved_amount"] = f"{claimed + 1000:.2f}"
 
-    return corrupted_claims, error_counts
+    # Return modified records, summary counts, and individual errors.
+    return corrupted_claims, error_counts, injected_errors
 
 # ---------------------------------------------------------
 # Temporary test: Copy clean claims to test directory
@@ -316,16 +338,19 @@ if __name__ == "__main__":
         # Read the original column names and claims.
         fieldnames, claims = read_claims(file_path)
 
-        # Introduce invalid values into approximately 5%
+        # Introduce invalid values into approximately 10%
         # of the original monthly claim records.
-        invalid_claims, error_counts = inject_invalid_records(
+        # Generate invalid records and capture detailed error information.
+        invalid_claims, error_counts, injected_errors = inject_invalid_records(
             claims,
             rng,
-            error_rate=0.10 # Corrupt 10% of original records.
+            error_rate=0.10
         )
+
         # Inject exact duplicates after corrupting selected rows.
         # Duplicates may therefore include invalid records.
-        corrupted_claims = inject_duplicates(
+        # Generate duplicates and record their source rows.
+        corrupted_claims, duplicate_details = inject_duplicates(
             invalid_claims,
             rng,
             duplicate_rate=0.05
@@ -360,7 +385,10 @@ if __name__ == "__main__":
             "invalid_records_injected": invalid_count,
             "duplicate_rows_added": duplicate_count,
             "total_test_records": len(corrupted_claims),
-            "error_types": error_counts.copy()
+            "error_types": error_counts.copy(),
+            # Store details of every intentionally modified source record.
+            "invalid_record_details": injected_errors,
+            "duplicate_record_details": duplicate_details
         }
 
         print(
