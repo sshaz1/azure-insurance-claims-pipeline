@@ -188,25 +188,34 @@ def inject_invalid_records(claims, rng, error_rate):
         "excessive_approval"
     ]
 
+    # Track how many times each error type is injected.
+    # Initialize every count to zero.
+    error_counts = {}
+    for error_type in error_types:
+        error_counts[error_type] = 0
+
     # Calculate how many errors of each type to generate.
     # divmod() gives us the base count and any remainder.
     # 10% of errors divided by 6 error types
     # lets say 10 records to be invalid, base = 1, remainder = 4
-    # Each error type happening at least once (base) the first 4 types getting
-    # 1 more (remainder)
+    # Each error type happening at least once (base) 4 random ones will get 2
     base, remainder = divmod(error_count, len(error_types))
 
     # Create a list containing an approximately equal
     # number of occurrences of each error type.
     assigned_errors = []
 
-    # enumerate(error_types) gives each type an index starting at 0
-    for i, error_type in enumerate(error_types):
+    # Randomly select which error types receive one extra error.
+    # sample() selects without replacement.
+    extra_types = rng.sample(error_types, remainder)
 
-        # Distribute leftover errors across the first types.
-        count = base + (1 if i < remainder else 0)
+    for error_type in error_types:
+        # Give each type its base count and one extra if randomly selected.
+        count = base + (1 if error_type in extra_types else 0)
 
-        # Add the error type to our assignment list.
+        # [error_type] * count creates a list. 
+        # extend() adds each item from that list,
+        # append() would've added the whole list as one item.
         assigned_errors.extend([error_type] * count)
 
     # Shuffle assignments so errors occur in random order.
@@ -216,6 +225,9 @@ def inject_invalid_records(claims, rng, error_rate):
     # zip() pairs the lists by position
     # each loop gives one claim from selected and its matching error type from assigned_errors
     for claim, error_type in zip(selected, assigned_errors):
+
+        # Record which error type we're introducing.
+        error_counts[error_type] += 1
 
         if error_type == "missing_id":
 
@@ -262,7 +274,7 @@ def inject_invalid_records(claims, rng, error_rate):
             claimed = float(claim["claimed_amount"])
             claim["approved_amount"] = f"{claimed + 1000:.2f}"
 
-    return corrupted_claims
+    return corrupted_claims, error_counts
 
 # ---------------------------------------------------------
 # Temporary test: Copy clean claims to test directory
@@ -288,7 +300,7 @@ if __name__ == "__main__":
 
         # Introduce invalid values into approximately 5%
         # of the original monthly claim records.
-        invalid_claims = inject_invalid_records(
+        invalid_claims, error_counts = inject_invalid_records(
             claims,
             rng,
             error_rate=0.10 # Corrupt 10% of original records.
@@ -322,3 +334,6 @@ if __name__ == "__main__":
             f"{invalid_count:,} intentionally invalid, "
             f"{duplicate_count:,} duplicates"
         )
+
+        for error_type, count in error_counts.items():
+            print(f"  {error_type}: {count}")
